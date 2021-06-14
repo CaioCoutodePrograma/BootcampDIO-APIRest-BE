@@ -39,7 +39,7 @@ public class StockService {
     @Transactional
     public StockDTO update(StockDTO dto) {
 
-        Optional<Stock> optionalStock = repository.findByStockUpdate(dto.getName(), dto.getDate(),dto.getId());
+        Optional<Stock> optionalStock = repository.findByStockUpdate(dto.getName(), dto.getDate(), dto.getId());
         if (optionalStock.isPresent()) {
             throw new BusinessException(MessageUtils.STOCK_ALREADY_EXISTS);
         }
@@ -56,20 +56,28 @@ public class StockService {
         }
         return mapper.toDto(optionalStock.get());
     }
+
     @Transactional(readOnly = true)
-    public List<StockDTO> findAll(){
+    public List<StockDTO> findAll() {
         return mapper.toDto(repository.findAll());
     }
+
     @Transactional
     public StockDTO deleteById(Long id) {
         StockDTO stockDTO = this.findById(id);
         repository.deleteById(stockDTO.getId());
         return stockDTO;
     }
+
     @Transactional
     public List<StockDTO> findToday() {
         List<StockDTO> stockDTOS = repository.findByDate(LocalDate.now()).map(mapper::toDto).orElseThrow(() -> new NotFoundException(""));
         return stockDTOS;
     }
 
+    @Transactional
+    public List<StockDTO> findByDay(LocalDate date) {
+        List<StockDTO> stockDTOS = repository.findByDate(date).map(mapper::toDto).orElseThrow(() -> new NotFoundException(""));
+        return stockDTOS;
+    }
 }
