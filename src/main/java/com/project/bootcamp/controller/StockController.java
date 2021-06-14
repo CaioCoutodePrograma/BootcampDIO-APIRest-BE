@@ -4,15 +4,14 @@ package com.project.bootcamp.controller;
 import com.project.bootcamp.model.Stock;
 import com.project.bootcamp.model.dto.StockDTO;
 import com.project.bootcamp.service.StockService;
-import jdk.vm.ci.meta.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.util.ArrayList;
+
+
 import java.util.List;
 @CrossOrigin
 @RestController
@@ -52,10 +51,8 @@ public class StockController {
         return ResponseEntity.ok(service.findToday());
     }
 
-    @GetMapping(value ="/date={date}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<StockDTO>> findByDay(@PathVariable LocalDate date){
-        return  ResponseEntity.ok(service.findByDay(date));
-    }
+
+
 
 
 

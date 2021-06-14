@@ -75,9 +75,5 @@ public class StockService {
         return stockDTOS;
     }
 
-    @Transactional
-    public List<StockDTO> findByDay(LocalDate date) {
-        List<StockDTO> stockDTOS = repository.findByDate(date).map(mapper::toDto).orElseThrow(() -> new NotFoundException(""));
-        return stockDTOS;
-    }
+
 }
